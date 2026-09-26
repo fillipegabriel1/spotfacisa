@@ -1,0 +1,65 @@
+<header class="header">
+
+  <div class="header-container">
+
+    <a
+      routerLink="/"
+      class="logo"
+    >
+      <span class="logo-icon">♪</span>
+
+      <span class="logo-text">
+        SPOT<span>FACISA</span>
+      </span>
+    </a>
+
+
+    <nav class="navigation">
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Início
+      </a>
+
+      <a
+        routerLink="/artistas"
+        routerLinkActive="active"
+      >
+        Artistas
+      </a>
+
+      <a
+        routerLink="/musicas"
+        routerLinkActive="active"
+      >
+        Músicas
+      </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+      <div class="search">
+
+        <span>⌕</span>
+
+        <input
+          type="text"
+          placeholder="Buscar..."
+        >
+
+      </div>
+
+      <div class="profile">
+        FS
+      </div>
+
+    </div>
+
+  </div>
+
+</header>

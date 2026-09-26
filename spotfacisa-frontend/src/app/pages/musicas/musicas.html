@@ -1,0 +1,247 @@
+<div class="musicas-page">
+
+  <div class="page-header">
+
+    <div>
+      <span class="eyebrow">SPOTFACISA</span>
+
+      <h1>Músicas</h1>
+
+      <p>
+        Gerencie as músicas disponíveis na plataforma.
+      </p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="novaMusica()"
+    >
+      + Nova música
+    </button>
+
+  </div>
+
+
+  <!-- FORMULÁRIO -->
+
+  @if (mostrarFormulario) {
+
+    <div class="form-container">
+
+      <div class="form-header">
+
+        <div>
+
+          <span class="eyebrow">
+            {{ editando ? 'EDITAR' : 'NOVA' }}
+          </span>
+
+          <h2>
+            {{ editando ? 'Editar música' : 'Cadastrar música' }}
+          </h2>
+
+        </div>
+
+        <button
+          class="btn-close"
+          (click)="fecharFormulario()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Título</label>
+
+          <input
+            type="text"
+            [(ngModel)]="musicaForm.titulo"
+            placeholder="Ex: Blinding Lights"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Gênero</label>
+
+          <input
+            type="text"
+            [(ngModel)]="musicaForm.genero"
+            placeholder="Ex: Pop"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Duração em segundos</label>
+
+          <input
+            type="number"
+            [(ngModel)]="musicaForm.duracao"
+            placeholder="Ex: 200"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Ano de lançamento</label>
+
+          <input
+            type="number"
+            [(ngModel)]="musicaForm.anoLancamento"
+            placeholder="Ex: 2019"
+          >
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <label>Artista</label>
+
+          <select
+            [(ngModel)]="artistaSelecionadoId"
+          >
+
+            <option [ngValue]="null">
+              Selecione um artista
+            </option>
+
+            @for (artista of artistas; track artista.id) {
+
+              <option [ngValue]="artista.id">
+                {{ artista.nome }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          class="btn-secondary"
+          (click)="fecharFormulario()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          class="btn-primary"
+          (click)="salvarMusica()"
+        >
+          {{ editando ? 'Atualizar música' : 'Salvar música' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- LISTA -->
+
+  @if (musicas.length === 0) {
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        ♪
+      </div>
+
+      <h2>Nenhuma música encontrada</h2>
+
+      <p>
+        Cadastre uma música para começar.
+      </p>
+
+    </div>
+
+  } @else {
+
+    <div class="music-list">
+
+      @for (musica of musicas; track musica.id) {
+
+        <article class="music-card">
+
+          <div class="music-icon">
+            ♪
+          </div>
+
+
+          <div class="music-info">
+
+            <span class="music-genre">
+              {{ musica.genero }}
+            </span>
+
+            <h2>
+              {{ musica.titulo }}
+            </h2>
+
+            <p class="music-artist">
+              {{ musica.artista.nome }}
+            </p>
+
+            <div class="music-details">
+
+              <span>
+                {{ musica.anoLancamento }}
+              </span>
+
+              <span>•</span>
+
+              <span>
+                {{ formatarDuracao(musica.duracao) }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="music-actions">
+
+            <button
+              class="btn-edit"
+              (click)="editarMusica(musica)"
+            >
+              Editar
+            </button>
+
+            <button
+              class="btn-delete"
+              (click)="excluirMusica(musica.id)"
+            >
+              Excluir
+            </button>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  }
+
+</div>

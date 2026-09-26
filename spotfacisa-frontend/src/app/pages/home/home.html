@@ -1,0 +1,300 @@
+<main class="home">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <span class="hero-label">
+        SUA MÚSICA. SEU MOMENTO.
+      </span>
+
+      <h1>
+        Música para
+        <span>cada momento.</span>
+      </h1>
+
+      <p>
+        Descubra artistas, encontre suas músicas favoritas
+        e aproveite uma experiência musical criada para você.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          routerLink="/musicas"
+          class="btn-primary"
+        >
+          Explorar músicas
+        </a>
+
+        <a
+          routerLink="/artistas"
+          class="btn-secondary"
+        >
+          Ver artistas
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+      <div class="vinyl">
+
+        <div class="vinyl-center">
+          ♪
+        </div>
+
+      </div>
+
+      <div class="floating-note note-one">
+        ♪
+      </div>
+
+      <div class="floating-note note-two">
+        ♫
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ESTATÍSTICAS -->
+  <section class="stats">
+
+    <div class="stat">
+
+      <strong>
+        {{ musicas.length }}
+      </strong>
+
+      <span>
+        Músicas
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong>
+        {{ artistas.length }}
+      </strong>
+
+      <span>
+        Artistas
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong>
+        100%
+      </strong>
+
+      <span>
+        Sua experiência
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- MÚSICAS -->
+  <section class="section">
+
+    <div class="section-header">
+
+      <div>
+
+        <span class="section-label">
+          RECENTES
+        </span>
+
+        <h2>
+          Músicas da plataforma
+        </h2>
+
+      </div>
+
+      <a routerLink="/musicas">
+        Ver todas →
+      </a>
+
+    </div>
+
+
+    @if (musicas.length === 0) {
+
+      <div class="empty-section">
+
+        <span>♪</span>
+
+        <p>
+          Nenhuma música cadastrada ainda.
+        </p>
+
+      </div>
+
+    } @else {
+
+      <div class="music-grid">
+
+        @for (musica of musicas.slice(0, 6); track musica.id) {
+
+          <article class="music-card">
+
+            <div class="music-cover">
+              ♪
+            </div>
+
+
+            <div class="music-info">
+
+              <h3>
+                {{ musica.titulo }}
+              </h3>
+
+              <p>
+                {{ musica.artista.nome }}
+              </p>
+
+              <span>
+                {{ musica.genero }}
+                ·
+                {{ formatarDuracao(musica.duracao) }}
+              </span>
+
+            </div>
+
+
+            <a
+              routerLink="/musicas"
+              class="play-button"
+              title="Ver músicas"
+            >
+              ▶
+            </a>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ARTISTAS -->
+  <section class="section">
+
+    <div class="section-header">
+
+      <div>
+
+        <span class="section-label">
+          ARTISTAS
+        </span>
+
+        <h2>
+          Conheça os artistas
+        </h2>
+
+      </div>
+
+      <a routerLink="/artistas">
+        Ver todos →
+      </a>
+
+    </div>
+
+
+    @if (artistas.length === 0) {
+
+      <div class="empty-section">
+
+        <span>♪</span>
+
+        <p>
+          Nenhum artista cadastrado ainda.
+        </p>
+
+      </div>
+
+    } @else {
+
+      <div class="artists-grid">
+
+        @for (artista of artistas.slice(0, 4); track artista.id) {
+
+          <a
+            routerLink="/artistas"
+            class="artist-card"
+          >
+
+            <div class="artist-image">
+              ♪
+            </div>
+
+            <div>
+
+              <h3>
+                {{ artista.nome }}
+              </h3>
+
+              <p>
+                {{ artista.genero }}
+              </p>
+
+            </div>
+
+          </a>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta">
+
+    <div>
+
+      <span class="section-label">
+        SPOTFACISA
+      </span>
+
+      <h2>
+        Sua música.
+        <span>Seu momento.</span>
+      </h2>
+
+      <p>
+        Continue explorando o universo musical da plataforma.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/musicas"
+      class="btn-primary"
+    >
+      Explorar agora
+    </a>
+
+  </section>
+
+</main>

@@ -1,0 +1,197 @@
+<div class="artistas-page">
+
+  <div class="page-header">
+
+    <div>
+      <span class="eyebrow">SPOTFACISA</span>
+
+      <h1>Artistas</h1>
+
+      <p>
+        Explore os artistas disponíveis na plataforma.
+      </p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="novoArtista()"
+    >
+      + Novo artista
+    </button>
+
+  </div>
+
+  @if (mostrarFormulario) {
+
+    <div class="form-container">
+
+      <div class="form-header">
+
+        <div>
+          <span class="eyebrow">
+            {{ editando ? 'EDITAR' : 'NOVO' }}
+          </span>
+
+          <h2>
+            {{ editando ? 'Editar artista' : 'Cadastrar artista' }}
+          </h2>
+        </div>
+
+        <button
+          class="btn-close"
+          (click)="fecharFormulario()"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Nome</label>
+
+          <input
+            type="text"
+            [(ngModel)]="artistaForm.nome"
+            placeholder="Ex: The Weeknd"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Gênero</label>
+
+          <input
+            type="text"
+            [(ngModel)]="artistaForm.genero"
+            placeholder="Ex: Pop"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Nacionalidade</label>
+
+          <input
+            type="text"
+            [(ngModel)]="artistaForm.nacionalidade"
+            placeholder="Ex: Canadense"
+          >
+
+        </div>
+
+        <div class="form-group full">
+
+          <label>Descrição</label>
+
+          <textarea
+            [(ngModel)]="artistaForm.descricao"
+            placeholder="Descrição do artista"
+            rows="4"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button
+          class="btn-secondary"
+          (click)="fecharFormulario()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          class="btn-primary"
+          (click)="salvarArtista()"
+        >
+          {{ editando ? 'Atualizar artista' : 'Salvar artista' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  @if (artistas.length === 0) {
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        ♪
+      </div>
+
+      <h2>Nenhum artista encontrado</h2>
+
+      <p>
+        Cadastre um artista para começar.
+      </p>
+
+    </div>
+
+  } @else {
+
+    <div class="artists-grid">
+
+      @for (artista of artistas; track artista.id) {
+
+        <article class="artist-card">
+
+          <div class="artist-cover">
+            ♪
+          </div>
+
+          <div class="artist-content">
+
+            <span class="artist-genre">
+              {{ artista.genero }}
+            </span>
+
+            <h2>
+              {{ artista.nome }}
+            </h2>
+
+            <p class="artist-country">
+              {{ artista.nacionalidade }}
+            </p>
+
+            <p class="artist-description">
+              {{ artista.descricao }}
+            </p>
+
+            <div class="artist-actions">
+
+              <button
+                class="btn-edit"
+                (click)="editarArtista(artista)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="excluirArtista(artista.id)"
+              >
+                Excluir
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  }
+
+</div>
