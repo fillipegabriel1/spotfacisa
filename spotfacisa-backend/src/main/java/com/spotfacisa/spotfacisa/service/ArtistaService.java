@@ -1,10 +1,10 @@
+
 package com.spotfacisa.spotfacisa.service;
 
 import com.spotfacisa.spotfacisa.entity.Artista;
-import com.spotfacisa.spotfacisa.entity.Musica;
+import com.spotfacisa.spotfacisa.exception.ResourceNotFoundException;
 import com.spotfacisa.spotfacisa.repository.ArtistaRepository;
 import org.springframework.stereotype.Service;
-import com.spotfacisa.spotfacisa.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -12,9 +12,14 @@ import java.util.List;
 public class ArtistaService {
 
     private final ArtistaRepository artistaRepository;
+    private final SequenceGeneratorService sequenceGeneratorService;
 
-    public ArtistaService(ArtistaRepository artistaRepository) {
+    public ArtistaService(
+            ArtistaRepository artistaRepository,
+            SequenceGeneratorService sequenceGeneratorService
+    ) {
         this.artistaRepository = artistaRepository;
+        this.sequenceGeneratorService = sequenceGeneratorService;
     }
 
     public List<Artista> listarTodos() {
@@ -23,17 +28,25 @@ public class ArtistaService {
 
     public Artista buscarPorId(Long id) {
         return artistaRepository.findById(id)
-        		.orElseThrow(() -> new ResourceNotFoundException("Artista não encontrado"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Artista não encontrado")
+                );
     }
 
     public Artista criar(Artista artista) {
+
+        if (artista.getId() == null) {
+            artista.setId(
+                    sequenceGeneratorService.generateSequence("artistas")
+            );
+        }
+
         return artistaRepository.save(artista);
     }
 
     public Artista atualizar(Long id, Artista artista) {
 
-        Artista artistaExistente = artistaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Música não encontrada"));
+        Artista artistaExistente = buscarPorId(id);
 
         if (artista.getNome() != null) {
             artistaExistente.setNome(artista.getNome());
@@ -55,9 +68,7 @@ public class ArtistaService {
     }
 
     public void deletar(Long id) {
-
         Artista artista = buscarPorId(id);
-
         artistaRepository.delete(artista);
     }
 }

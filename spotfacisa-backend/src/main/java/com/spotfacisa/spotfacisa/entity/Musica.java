@@ -1,17 +1,13 @@
+
 package com.spotfacisa.spotfacisa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection = "musicas")
 public class Musica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
@@ -19,14 +15,20 @@ public class Musica {
     private String genero;
     private Integer anoLancamento;
 
-    @ManyToOne
-    @JoinColumn(name = "artista_id")
+    // Documento do artista incorporado à música
     private Artista artista;
 
     public Musica() {
     }
 
-    public Musica(Long id, String titulo, Integer duracao, String genero, Integer anoLancamento, Artista artista) {
+    public Musica(
+            Long id,
+            String titulo,
+            Integer duracao,
+            String genero,
+            Integer anoLancamento,
+            Artista artista
+    ) {
         this.id = id;
         this.titulo = titulo;
         this.duracao = duracao;

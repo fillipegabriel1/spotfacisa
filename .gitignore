@@ -60,3 +60,4 @@ desktop.ini
 .env
 .env.*
 !.env.example
+spotfacisa-backend/atlas-credentials.env

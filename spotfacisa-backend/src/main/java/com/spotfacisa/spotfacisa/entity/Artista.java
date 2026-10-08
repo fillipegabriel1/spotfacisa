@@ -1,15 +1,13 @@
+
 package com.spotfacisa.spotfacisa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection = "artistas")
 public class Artista {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
@@ -20,7 +18,13 @@ public class Artista {
     public Artista() {
     }
 
-    public Artista(Long id, String nome, String genero, String nacionalidade, String descricao) {
+    public Artista(
+            Long id,
+            String nome,
+            String genero,
+            String nacionalidade,
+            String descricao
+    ) {
         this.id = id;
         this.nome = nome;
         this.genero = genero;
